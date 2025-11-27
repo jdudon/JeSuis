@@ -1,5 +1,3 @@
-# JeSuis
-Une boutique de goodies JS en ligne
 # 🌍 Projet Fil Rouge — Ma Boutique JS  
 ## 📘 Fichier Global (FR + EN) — Version Élèves  
 Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solutions)
