@@ -1,22 +1,29 @@
 /*************************************************
- * EXERCICE 9 - Panier interactif & boutique complète
- * Notions : addEventListener, fonctions avec paramètres,
- *           mise à jour de l'état et du DOM
+ * EXERCICE 9 - Panier interactif (avec clics)
+ * Notions : addEventListener, fonctions avec param,
+ *           mise à jour de l'état global et du DOM
  *************************************************/
 
-/* --- Correction Exercice 1 à 8 --- */
+/* --- Correction Exercice 1 - Variables & infos de base --- */
 
-// Données de la boutique
 const shopName = "Ma Boutique JS";
 const city = "Lyon";
 let isOpen = true;
 let productCount = 3;
 let slogan = "Des goodies pour développeurs passionnés !";
 
+console.log("Bienvenue dans " + shopName + " située à " + city);
+console.log("Slogan :", slogan);
+
+if (isOpen) {
+  console.log("La boutique est ouverte.");
+} else {
+  console.log("La boutique est fermée.");
+}
+
 const taglineElement = document.querySelector(".site-tagline");
 if (taglineElement) {
-  taglineElement.textContent =
-    "Bienvenue dans " + shopName + " à " + city + " 👋";
+  taglineElement.textContent = `Bienvenue dans ${shopName} à ${city} 👋`;
 }
 
 const yearSpan = document.getElementById("year");
@@ -24,90 +31,219 @@ if (yearSpan) {
   yearSpan.textContent = new Date().getFullYear();
 }
 
-// TVA et fonctions de prix
+/* --- Correction Exercice 2 - Chaînes de caractères & messages --- */
+
+let welcomeMessage =
+  "Bienvenue dans " + shopName + " située à " + city + " !";
+let welcomeMessage2 = `Bienvenue dans ${shopName} à ${city} !`;
+
+let sloganLength = slogan.length;
+let sloganUppercase = slogan.toUpperCase();
+let sloganModified = slogan.replace("goodies", "trésors");
+
+console.log("welcomeMessage :", welcomeMessage);
+console.log("welcomeMessage2 :", welcomeMessage2);
+console.log("Longueur du slogan :", sloganLength);
+console.log("Slogan en majuscules :", sloganUppercase);
+console.log("Slogan modifié :", sloganModified);
+
+const cartMessageElementEx2 = document.getElementById("cart-message");
+if (cartMessageElementEx2) {
+  cartMessageElementEx2.textContent =
+    sloganModified + ` (${sloganLength} caractères dans le slogan original)`;
+}
+
+/* --- Correction Exercice 3 - Nombres & calculs --- */
+
+let priceHTExample = 20;
 const VAT = 0.2;
+
+let priceTTCExample = priceHTExample + priceHTExample * VAT;
+console.log("Prix HT d'exemple :", priceHTExample);
+console.log("Prix TTC d'exemple :", priceTTCExample);
+
+let salesCount = 0;
+salesCount++;
+console.log("Nombre de ventes après incrémentation :", salesCount);
+
+/* --- Correction Exercice 4 - Fonctions de prix --- */
 
 function calculatePriceTTC(priceHT) {
   return priceHT + priceHT * VAT;
 }
 
 function formatPrice(price) {
-  return price.toFixed(2).replace(".", ",") + " €";
+  return price.toFixed(2) + " €";
 }
 
-// Tableau d'objets produits (avec images)
+const testPrice1 = calculatePriceTTC(10);
+const testPrice2 = calculatePriceTTC(19.99);
+
+console.log("Test 1 TTC formaté :", formatPrice(testPrice1));
+console.log("Test 2 TTC formaté :", formatPrice(testPrice2));
+
+/* --- Correction Exercice 5 - Produit vedette (DOM, sans objets) --- */
+
+let featuredProductName = "T-shirt Code & Chill";
+let featuredProductPriceHT = 19.99;
+let featuredProductDescription = "Parfait pour coder confortablement.";
+let featuredProductImage = "images/tshirt-code-chill.jpg";
+
+const productList = document.getElementById("product-list");
+
+function createFeaturedProductCard() {
+  const article = document.createElement("article");
+  article.classList.add("product-card");
+
+  const img = document.createElement("img");
+  img.src = featuredProductImage;
+  img.alt = featuredProductName;
+  img.classList.add("product-image");
+
+  const title = document.createElement("h3");
+  title.textContent = featuredProductName;
+  title.classList.add("product-title");
+
+  const priceElt = document.createElement("p");
+  const priceTTC = calculatePriceTTC(featuredProductPriceHT);
+  priceElt.textContent = formatPrice(priceTTC);
+  priceElt.classList.add("product-price");
+
+  const desc = document.createElement("p");
+  desc.textContent = featuredProductDescription;
+  desc.classList.add("product-description");
+
+  article.appendChild(img);
+  article.appendChild(title);
+  article.appendChild(priceElt);
+  article.appendChild(desc);
+
+  return article;
+}
+
+if (productList) {
+  productList.innerHTML = "";
+  const card = createFeaturedProductCard();
+  productList.appendChild(card);
+}
+
+/* --- Correction Exercice 6 - Tableaux simples & console --- */
+
+const productNames = ["T-shirt JS", "Mug Debug", "Sticker Bug Free"];
+const productPricesHT = [19.99, 9.99, 2.5];
+
+console.log("Nombre de produits (tableaux simples) :", productNames.length);
+
+function displayProductsInConsole() {
+  for (let i = 0; i < productNames.length; i++) {
+    const name = productNames[i];
+    const priceHT = productPricesHT[i];
+    const priceTTC = calculatePriceTTC(priceHT);
+    const formattedPrice = formatPrice(priceTTC);
+
+    console.log(`${i + 1} - ${name} — ${formattedPrice} TTC`);
+  }
+}
+
+displayProductsInConsole();
+
+/* --- Correction Exercice 7 - Tableau d'objets & affichage DOM --- */
 const products = [
   {
     id: 1,
-    name: "T-shirt Code & Chill",
+    name: "T-shirt JS",
     priceHT: 19.99,
-    description: "Un t-shirt confortable pour coder des heures.",
-    image:
-      "https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg?auto=compress&cs=tinysrgb&w=600",
+    description: "T-shirt confortable pour développeurs JavaScript.",
+    image: "https://images.unsplash.com/photo-1561347981-969c80cf4463?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
     id: 2,
-    name: 'Mug "Bug Hunter"',
-    priceHT: 12.5,
-    description: "Le mug officiel des chasseurs de bugs.",
-    image:
-      "https://images.pexels.com/photos/29279566/pexels-photo-29279566.jpeg?auto=compress&cs=tinysrgb&w=600",
+    name: "Mug Debug",
+    priceHT: 9.99,
+    description: "Mug pour déboguer avec du café ☕.",
+    image: "https://images.unsplash.com/photo-1639755507638-e34150b56db2?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
     id: 3,
-    name: "Stickers Full-Stack Dev",
-    priceHT: 4.99,
-    description: "Des stickers pour afficher ton statut de dev.",
-    image:
-      "https://images.pexels.com/photos/11035473/pexels-photo-11035473.jpeg?auto=compress&cs=tinysrgb&w=600",
-  },
+    name: "Sticker Bug Free",
+    priceHT: 2.5,
+    description: "Un sticker pour célébrer les bugs corrigés.",
+    image: "https://images.unsplash.com/photo-1662389943678-df7f58b730e8?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  }
 ];
 
-/* --- Nouveautés Exercice 9 : clics & mise à jour du panier --- */
+const productListSection = document.getElementById("product-list");
 
-// État du panier
+// ⚠️ createProductCard sera redéfinie plus bas pour ajouter le bouton
+function createProductCard(product) {
+  const article = document.createElement("article");
+  article.classList.add("product-card");
+
+  const img = document.createElement("img");
+  img.src = product.image;
+  img.alt = product.name;
+  img.classList.add("product-image");
+
+  const title = document.createElement("h3");
+  title.textContent = product.name;
+  title.classList.add("product-title");
+
+  const priceElt = document.createElement("p");
+  const priceTTC = calculatePriceTTC(product.priceHT);
+  priceElt.textContent = formatPrice(priceTTC);
+  priceElt.classList.add("product-price");
+
+  const desc = document.createElement("p");
+  desc.textContent = product.description;
+  desc.classList.add("product-description");
+
+  article.appendChild(img);
+  article.appendChild(title);
+  article.appendChild(priceElt);
+  article.appendChild(desc);
+
+  return article;
+}
+
+function displayProductsInPage() {
+  if (!productListSection) return;
+
+  productListSection.innerHTML = "";
+
+  for (const product of products) {
+    const card = createProductCard(product);
+    productListSection.appendChild(card);
+  }
+}
+
+displayProductsInPage();
+
+/* --- Correction Exercice 8 - Panier & conditions (sans clic) --- */
+
 let cartItemCount = 0;
 let cartTotal = 0;
 
-// Références DOM panier
-const cartCountHeader = document.getElementById("cart-count");
-const cartTotalHeader = document.getElementById("cart-total");
-const cartCountAside = document.getElementById("cart-count-aside");
-const cartTotalAside = document.getElementById("cart-total-aside");
-const cartMessageElement = document.getElementById("cart-message");
-
-// Conteneur des produits
-const productListElement = document.getElementById("product-list");
-
-/**
- * Retourne un message de panier différent selon le total
- */
 function generateCartMessage(total) {
   if (total === 0) {
     return "Votre panier est vide.";
   } else if (total < 50) {
-    return "Ajoutez encore des produits pour atteindre 50 € et débloquer la livraison offerte.";
+    return "Ajoutez encore des produits pour profiter de la livraison offerte à partir de 50 €.";
   } else {
     return "Livraison offerte 🎉 Merci pour votre commande !";
   }
 }
 
-/**
- * Met à jour l'affichage du panier dans le DOM
- */
+const cartCountElement = document.getElementById("cart-count");
+const cartTotalElement = document.getElementById("cart-total");
+const cartMessageElement = document.getElementById("cart-message");
+
 function updateCartDisplay() {
-  if (cartCountHeader) {
-    cartCountHeader.textContent = cartItemCount.toString();
-  }
-  if (cartCountAside) {
-    cartCountAside.textContent = cartItemCount.toString();
+  if (cartCountElement) {
+    cartCountElement.textContent = cartItemCount.toString();
   }
 
-  if (cartTotalHeader) {
-    cartTotalHeader.textContent = formatPrice(cartTotal);
-  }
-  if (cartTotalAside) {
-    cartTotalAside.textContent = formatPrice(cartTotal);
+  if (cartTotalElement) {
+    cartTotalElement.textContent = formatPrice(cartTotal);
   }
 
   if (cartMessageElement) {
@@ -115,80 +251,76 @@ function updateCartDisplay() {
   }
 }
 
-/**
- * Ajoute un produit au panier
- */
+// Pour l'exercice 9, on ne garde pas les tests manuels de l'exercice 8.
+// On initialise simplement l'affichage du panier à 0.
+cartItemCount = 0;
+cartTotal = 0;
+updateCartDisplay();
+
+/* --- Nouveautés Exercice 9 - Panier interactif (avec clics) --- */
+
+// Fonction pour ajouter un produit au panier
 function addToCart(product) {
   const priceTTC = calculatePriceTTC(product.priceHT);
-  cartTotal = cartTotal + priceTTC;
+  cartTotal += priceTTC;
   cartItemCount++;
-
-  console.log("Produit ajouté au panier :", product.name);
-  console.log("Nouveau total :", formatPrice(cartTotal));
-
   updateCartDisplay();
 }
 
-/**
- * Crée une carte produit avec un bouton "Ajouter au panier"
- */
+// Nouvelle version de createProductCard : on ajoute un bouton + écouteur
 function createProductCard(product) {
-  const card = document.createElement("article");
-  card.classList.add("product-card");
+  const article = document.createElement("article");
+  article.classList.add("product-card");
 
   const img = document.createElement("img");
-  img.classList.add("product-image");
   img.src = product.image;
   img.alt = product.name;
+  img.classList.add("product-image");
 
-  const titleElement = document.createElement("h3");
-  titleElement.classList.add("product-name");
-  titleElement.textContent = product.name;
+  const title = document.createElement("h3");
+  title.textContent = product.name;
+  title.classList.add("product-title");
 
-  const priceElement = document.createElement("p");
-  priceElement.classList.add("product-price");
+  const priceElt = document.createElement("p");
   const priceTTC = calculatePriceTTC(product.priceHT);
-  priceElement.textContent = formatPrice(priceTTC);
+  priceElt.textContent = formatPrice(priceTTC);
+  priceElt.classList.add("product-price");
 
-  const descriptionElement = document.createElement("p");
-  descriptionElement.classList.add("product-desc");
-  descriptionElement.textContent = product.description;
+  const desc = document.createElement("p");
+  desc.textContent = product.description;
+  desc.classList.add("product-description");
 
-  const buttonElement = document.createElement("button");
-  buttonElement.classList.add("btn-add");
-  buttonElement.textContent = "Ajouter au panier";
+  const button = document.createElement("button");
+  button.textContent = "Ajouter au panier";
+  button.classList.add("btn-add-to-cart");
 
-  // Clic sur le bouton : ajouter ce produit au panier
-  buttonElement.addEventListener("click", function () {
+  button.addEventListener("click", function () {
     addToCart(product);
   });
 
-  card.appendChild(img);
-  card.appendChild(titleElement);
-  card.appendChild(priceElement);
-  card.appendChild(descriptionElement);
-  card.appendChild(buttonElement);
+  article.appendChild(img);
+  article.appendChild(title);
+  article.appendChild(priceElt);
+  article.appendChild(desc);
+  article.appendChild(button);
 
-  return card;
+  return article;
 }
 
-/**
- * Affiche tous les produits dans la page
- */
+// On réutilise displayProductsInPage(), mais avec la nouvelle version de createProductCard
 function displayProductsInPage() {
-  if (!productListElement) return;
+  if (!productListSection) return;
 
-  productListElement.innerHTML = "";
+  productListSection.innerHTML = "";
 
-  for (let i = 0; i < products.length; i++) {
-    const product = products[i];
+  for (const product of products) {
     const card = createProductCard(product);
-    productListElement.appendChild(card);
+    productListSection.appendChild(card);
   }
 }
 
-// Initialisation de la boutique
+// Initialisation finales
 displayProductsInPage();
 updateCartDisplay();
 
-console.log("Exercice 9 chargé ✅ — Boutique interactive prête 🎉");
+console.log("Exercice 9 chargé ✅");

@@ -1,23 +1,32 @@
 /*************************************************
- * EXERCICE 6 - Tableaux de produits & boucle for
- * Objectif : travailler les tableaux + for
- * (sans objets ni DOM supplémentaires)
+ * EXERCICE 6 - Tableaux simples & boucle for
+ * Notions : tableaux, length, for, réutilisation
+ *           des fonctions de prix
  *************************************************/
 
-/* --- Correction Exercice 1 à 4 --- */
+/* --- Correction Exercices 1 à 5 --- */
+/* (Identique au script de l'exercice 5) */
 
-// Données de la boutique
+/* Exercice 1 - Variables & infos de base */
+
 const shopName = "Ma Boutique JS";
 const city = "Lyon";
 let isOpen = true;
 let productCount = 3;
 let slogan = "Des goodies pour développeurs passionnés !";
 
-// Tagline et année dans le footer
+console.log("Bienvenue dans " + shopName + " située à " + city);
+console.log("Slogan :", slogan);
+
+if (isOpen) {
+  console.log("La boutique est ouverte.");
+} else {
+  console.log("La boutique est fermée.");
+}
+
 const taglineElement = document.querySelector(".site-tagline");
 if (taglineElement) {
-  taglineElement.textContent =
-    "Bienvenue dans " + shopName + " à " + city + " 👋";
+  taglineElement.textContent = `Bienvenue dans ${shopName} à ${city} 👋`;
 }
 
 const yearSpan = document.getElementById("year");
@@ -25,117 +34,121 @@ if (yearSpan) {
   yearSpan.textContent = new Date().getFullYear();
 }
 
-// Exemple de messages (Exo 2)
+/* Exercice 2 - Strings */
+
 let welcomeMessage =
   "Bienvenue dans " + shopName + " située à " + city + " !";
 let welcomeMessage2 = `Bienvenue dans ${shopName} à ${city} !`;
+
 let sloganLength = slogan.length;
 let sloganUppercase = slogan.toUpperCase();
 let sloganModified = slogan.replace("goodies", "trésors");
 
-// TVA et fonctions de prix (Exo 3 & 4)
+console.log("welcomeMessage :", welcomeMessage);
+console.log("welcomeMessage2 :", welcomeMessage2);
+console.log("Longueur du slogan :", sloganLength);
+console.log("Slogan en majuscules :", sloganUppercase);
+console.log("Slogan modifié :", sloganModified);
+
+const cartMessageElementEx2 = document.getElementById("cart-message");
+if (cartMessageElementEx2) {
+  cartMessageElementEx2.textContent =
+    sloganModified + ` (${sloganLength} caractères dans le slogan original)`;
+}
+
+/* Exercice 3 - Nombres & calculs */
+
+let priceHTExample = 20;
 const VAT = 0.2;
+
+let priceTTCExample = priceHTExample + priceHTExample * VAT;
+console.log("Prix HT d'exemple :", priceHTExample);
+console.log("Prix TTC d'exemple :", priceTTCExample);
+
+let salesCount = 0;
+salesCount++;
+console.log("Nombre de ventes après incrémentation :", salesCount);
+
+/* Exercice 4 - Fonctions */
 
 function calculatePriceTTC(priceHT) {
   return priceHT + priceHT * VAT;
 }
 
 function formatPrice(price) {
-  return price.toFixed(2).replace(".", ",") + " €";
+  return price.toFixed(2) + " €";
 }
 
-/* --- Correction Exercice 5 : afficher 1 produit vedette --- */
+const testPrice1 = calculatePriceTTC(10);
+const testPrice2 = calculatePriceTTC(19.99);
 
-// Produit vedette
-const featuredProduct = {
-  name: "T-shirt Code & Chill",
-  priceHT: 19.99,
-  description: "Un t-shirt confortable pour coder des heures.",
-  image:
-    "https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg?auto=compress&cs=tinysrgb&w=600",
-};
+console.log("Test 1 TTC formaté :", formatPrice(testPrice1));
+console.log("Test 2 TTC formaté :", formatPrice(testPrice2));
 
-// Conteneur DOM
-const productListElement = document.getElementById("product-list");
+/* Exercice 5 - Produit vedette (DOM, sans objets) */
 
-// Créer une carte produit pour UN produit
-function createProductCard(product) {
+let featuredProductName = "T-shirt Code & Chill";
+let featuredProductPriceHT = 19.99;
+let featuredProductDescription = "Parfait pour coder confortablement.";
+let featuredProductImage = "https://images.unsplash.com/photo-1561347981-969c80cf4463?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+
+const productList = document.getElementById("product-list");
+
+function createFeaturedProductCard() {
   const article = document.createElement("article");
   article.classList.add("product-card");
 
   const img = document.createElement("img");
+  img.src = featuredProductImage;
+  img.alt = featuredProductName;
   img.classList.add("product-image");
-  img.src = product.image;
-  img.alt = product.name;
 
-  const titleElement = document.createElement("h3");
-  titleElement.classList.add("product-name");
-  titleElement.textContent = product.name;
+  const title = document.createElement("h3");
+  title.textContent = featuredProductName;
+  title.classList.add("product-title");
 
-  const priceElement = document.createElement("p");
-  priceElement.classList.add("product-price");
-  const priceTTC = calculatePriceTTC(product.priceHT);
-  priceElement.textContent = formatPrice(priceTTC);
+  const priceElt = document.createElement("p");
+  const priceTTC = calculatePriceTTC(featuredProductPriceHT);
+  priceElt.textContent = formatPrice(priceTTC);
+  priceElt.classList.add("product-price");
 
-  const descriptionElement = document.createElement("p");
-  descriptionElement.classList.add("product-desc");
-  descriptionElement.textContent = product.description;
+  const desc = document.createElement("p");
+  desc.textContent = featuredProductDescription;
+  desc.classList.add("product-description");
 
   article.appendChild(img);
-  article.appendChild(titleElement);
-  article.appendChild(priceElement);
-  article.appendChild(descriptionElement);
+  article.appendChild(title);
+  article.appendChild(priceElt);
+  article.appendChild(desc);
 
   return article;
 }
 
-// Afficher uniquement le produit vedette dans la page
-if (productListElement) {
-  productListElement.innerHTML = "";
-  const card = createProductCard(featuredProduct);
-  productListElement.appendChild(card);
+if (productList) {
+  productList.innerHTML = "";
+  const card = createFeaturedProductCard();
+  productList.appendChild(card);
 }
 
-/* --- Nouveautés Exercice 6 : tableaux simples + boucle for --- */
+/* --- Nouveautés Exercice 6 --- */
+/* Tableaux simples & boucle for */
 
-// Tableaux parallèles : noms et prix HT (sans objets)
-const productNames = [
-  "T-shirt Code & Chill",
-  'Mug "Bug Hunter"',
-  "Stickers Full-Stack Dev",
-];
+const productNames = ["T-shirt JS", "Mug Debug", "Sticker Bug Free"];
+const productPricesHT = [19.99, 9.99, 2.5];
 
-const productPricesHT = [19.99, 12.5, 4.99];
+console.log("Nombre de produits :", productNames.length);
 
-// Afficher le nombre de produits dans la console
-console.log("Nombre de produits dans les tableaux :", productNames.length);
-
-/**
- * Affiche tous les produits définis dans les tableaux
- * productNames et productPricesHT dans la console
- */
 function displayProductsInConsole() {
   for (let i = 0; i < productNames.length; i++) {
     const name = productNames[i];
     const priceHT = productPricesHT[i];
     const priceTTC = calculatePriceTTC(priceHT);
-    const priceFormatted = formatPrice(priceTTC);
+    const formattedPrice = formatPrice(priceTTC);
 
-    console.log(
-      "Produit " + (i + 1) + " : " + name + " - " + priceFormatted + " TTC"
-    );
+    console.log(`${i + 1} - ${name} — ${formattedPrice} TTC`);
   }
 }
 
-// Appel de la fonction pour afficher les produits
 displayProductsInConsole();
-
-/* --- Rendu visuel Exo 6 --- */
-
-const cartMessageElement = document.getElementById("cart-message");
-if (cartMessageElement) {
-  cartMessageElement.textContent =
-    "Exercice 6 : ouvre la console pour voir la liste des produits (boucles & tableaux) 🧾";
-}
 
 console.log("Exercice 6 chargé ✅");

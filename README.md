@@ -50,19 +50,22 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
 
 ## 🧩 Pseudo-code
 ```
-shopName = ...
-city = ...
-isOpen = ...
-productCount = ...
-slogan = ...
+- Créer une variable pour le nom de la boutique
+- Créer une variable pour la ville
+- Créer une variable booléenne pour savoir si la boutique est ouverte
+- Créer une variable pour le nombre de produits
+- Créer une variable pour le slogan
 
-console.log("Bienvenue dans " + shopName + " à " + city)
-console.log(slogan)
+- Afficher un message de bienvenue dans la console
+  (indice : concaténer texte + variables)
 
-if (isOpen):
-    afficher "La boutique est ouverte"
-else:
-    afficher "La boutique est fermée"
+- Afficher le slogan dans la console
+
+- Selon la variable qui indique si la boutique est ouverte :
+  - afficher dans la console un message “ouverte”
+  - ou un message “fermée”
+  (indice : utiliser une condition simple avec if / else)
+
 ```
 ---
 
@@ -98,18 +101,25 @@ else:
 
 ## 🧩 Pseudo-code
 ```
-welcomeMessage = "Bienvenue dans " + shopName
-welcomeMessage2 = `Bienvenue dans ${shopName}`
+- Partir du slogan déjà créé à l’exercice 1
 
-sloganLength = slogan.length
-sloganUppercase = slogan.toUpperCase()
-sloganModified = slogan.replace("motÀChanger", "nouveauMot")
+- Créer un premier message de bienvenue en collant du texte et des variables
+  (indice : utiliser l’opérateur pour concaténer des chaînes)
 
-console.log(welcomeMessage)
-console.log(welcomeMessage2)
-console.log(sloganLength)
-console.log(sloganUppercase)
-console.log(sloganModified)
+- Créer un deuxième message de bienvenue en utilisant une autre syntaxe
+  qui permet d’injecter des variables dans une chaîne
+  (indice : pensez au gabarit de chaîne avec ${...})
+
+- Calculer la longueur du slogan
+
+- Créer une version en majuscules du slogan
+
+- Créer une version du slogan où un mot est remplacé par un autre
+  (indice : il existe une méthode pour remplacer une partie d’un texte)
+
+- Afficher les deux messages, la longueur, la version majuscule
+  et la version modifiée dans la console
+
 ```
 ---
 
@@ -142,17 +152,24 @@ console.log(sloganModified)
 
 ## 🧩 Pseudo-code
 ```
-priceHT = ...
-VAT = 0.2
+- Créer une variable contenant un prix HT d’exemple
 
-priceTTC = priceHT + priceHT * VAT
+- Créer une variable contenant le taux de TVA
+  (par exemple 0.2 pour 20%)
 
-console.log(priceHT)
-console.log(priceTTC)
+- Calculer le prix TTC à partir du prix HT et de la TVA
+  (indice : utiliser une addition et une multiplication)
 
-salesCount = 0
-salesCount++      // augmente de 1
-console.log(salesCount)
+- Afficher le prix HT et le prix TTC dans la console
+
+- Créer une variable pour compter le nombre de ventes
+  (commencer à 0)
+
+- Simuler une nouvelle vente en augmentant ce compteur
+  (indice : utiliser l’opérateur pour ajouter 1)
+
+- Afficher la nouvelle valeur du compteur dans la console
+
 ```
 ---
 
@@ -186,89 +203,116 @@ console.log(salesCount)
 
 ## 🧩 Pseudo-code
 ```
-function calculatePriceTTC(priceHT):
-    TTC = priceHT + priceHT * VAT
-    return TTC
+- Définir une fonction qui :
+    • reçoit un prix HT en paramètre
+    • calcule le prix TTC (en réutilisant la formule de l’exercice 3)
+    • renvoie le prix TTC
 
-function formatPrice(price):
-    formatted = price.toFixed(2)
-    return formatted + " €"
+- Définir une autre fonction qui :
+    • reçoit un prix (nombre)
+    • arrondit ce prix à 2 décimales
+    • ajoute le symbole de la monnaie
+    • renvoie le résultat sous forme de texte
+      (indice : il existe une méthode pour formater un nombre avec un certain nombre de décimales)
 
-test1 = calculatePriceTTC(10)
-console.log(formatPrice(test1))
+- Tester ces fonctions :
+    • appeler la fonction de calcul du TTC avec différents prix HT
+    • passer le résultat dans la fonction de formatage
+    • afficher le résultat final dans la console
 
-test2 = calculatePriceTTC(19.99)
-console.log(formatPrice(test2))
 ```
 ---
 
 # 🟥 EXERCICE 5 — Afficher un produit dans la page (DOM)
 
-## 🎯 Objectifs
-- Manipuler le DOM en JavaScript
-- Créer et insérer des éléments HTML dynamiquement
-- Construire une carte produit simple
-- Réutiliser les fonctions de prix créées précédemment
+### 🎯 Objectifs
+- Manipuler le DOM avec JavaScript  
+- Créer plusieurs éléments HTML avec `createElement()`  
+- Remplir ces éléments avec des variables simples  
+- Assembler une carte produit complète en JS  
+- Afficher un seul produit dans la page  
 
-## 🧠 Notions
-- `document.getElementById()`
-- `document.createElement()`
-- `appendChild()`
-- `classList.add()`
-- Recalcul et formatage du prix TTC
+---
+
+## 📚 Notions utilisées
+- `document.getElementById()`  
+- `document.createElement()`  
+- `.textContent`  
+- `.src` / `.alt`  
+- `appendChild()`  
+- Fonctions déjà créées : `calculatePriceTTC()` et `formatPrice()`  
+
+---
 
 ## 📝 Consignes détaillées
-1. Crée un objet `featuredProduct` contenant au minimum :
-   - `name` → nom du produit  
-   - `priceHT` → prix hors taxes  
-   - `description` → courte phrase  
-   - `image` → URL d'une image  
-2. Récupère dans le DOM l’élément `<section id="product-list">`.  
-3. Crée la fonction `createProductCard(product)` qui :
-   - crée un élément `<article>`  
-   - crée un élément `<img>` pour l’image  
-   - crée un élément `<h3>` pour afficher le nom  
-   - crée un élément `<p>` pour afficher le prix TTC  
-   - crée un élément `<p>` pour afficher la description  
-   - assemble ces éléments et renvoie `<article>`  
-4. Vide le conteneur puis ajoute **une carte** correspondant au produit vedette.
 
-> 💡 Cet exercice permet de comprendre le lien entre données → HTML généré par JavaScript.
+1. Crée quatre variables représentant le produit vedette :  
+   - `featuredProductName` : le nom du produit  
+   - `featuredProductPriceHT` : le prix HT  
+   - `featuredProductDescription` : la description du produit  
+   - `featuredProductImage` : l’URL de son image  
+
+2. Récupère dans le DOM l’élément qui accueillera le produit.  
+   Il s’agit de la section suivante dans ton HTML :  
+```html
+   <section id="product-list"></section>
+```
+   En JavaScript, tu devras récupérer cet élément via :  
+```js
+   const productList = document.getElementById("product-list")
+```
+3. Crée une fonction `createFeaturedProductCard()` qui devra :  
+   - créer un élément `<article>`  
+   - créer un `<img>` et définir sa `src` et son `alt`  
+   - créer un `<h3>` contenant le nom du produit  
+   - calculer le prix TTC du produit à partir du prix HT  
+   - formater ce prix TTC avec `formatPrice()`  
+   - créer un `<p>` contenant le prix TTC  
+   - créer un `<p>` contenant la description du produit  
+   - ajouter tous ces éléments dans l’article  
+   - retourner l’article  
+
+4. Affiche ton produit vedette dans la page :  
+   - vide le contenu de `#product-list`  
+   - appelle la fonction `createFeaturedProductCard()`  
+   - ajoute la carte retournée dans `productList` avec `appendChild()`  
+
+---
 
 ## 🧩 Pseudo-code
-```
-featuredProduct = {
-    name: "...",
-    priceHT: ...,
-    description: "...",
-    image: "..."
-}
 
-productList = getElementById("product-list")
+- Créer des variables pour :
+  nom du produit, prix HT, description, image
 
-function createProductCard(product):
-    article = createElement("article")
-    img = createElement("img")
-    title = createElement("h3")
-    priceElt = createElement("p")
-    desc = createElement("p")
+- Récupérer la section HTML où afficher le produit
+  (indice : utilisez une méthode du DOM qui sélectionne un élément par son id)
 
-    img.src = product.image
-    title.textContent = product.name
-    priceElt.textContent = formatPrice(calculatePriceTTC(product.priceHT))
-    desc.textContent = product.description
+- Définir une fonction qui :
+    • crée un conteneur pour la carte  
+      (indice : il existe une méthode du DOM pour créer un élément HTML)
+    • crée une image :
+        - lui donner l’URL
+        - lui donner un texte alternatif
+      (indice : pensez aux propriétés des balises <img>)
+    • crée un titre et lui mettre le nom du produit  
+      (indice : une propriété permet d’écrire du texte dans un élément)
+    • calcule le prix TTC en utilisant la fonction vue dans l’exercice précédent
+      (indice : vous avez déjà une fonction qui fait un calcul à partir du prix HT)
+    • formate ce prix TTC avec la fonction prévue pour ça
+    • crée un paragraphe pour afficher le prix TTC
+    • crée un autre paragraphe pour la description
+    • assemble tous les éléments dans le conteneur
+      (indice : pensez à une méthode qui ajoute un enfant dans un élément)
+    • retourne ce conteneur
 
-    article.appendChild(img)
-    article.appendChild(title)
-    article.appendChild(priceElt)
-    article.appendChild(desc)
+- Avant d’afficher la carte, vider ce qu’il y a déjà dans la section
+  (indice : il existe une propriété qui permet de supprimer tout le contenu HTML d’un élément)
 
-    return article
+- Appeler la fonction pour créer la carte
 
-productList.innerHTML = ""
-card = createProductCard(featuredProduct)
-productList.appendChild(card)
-```
+- Ajouter le résultat dans la section prévue
+  (indice : même méthode que pour assembler les éléments dans la carte)
+
 ---
 
 # 🟫 EXERCICE 6 — Tableaux simples & boucle for
@@ -303,20 +347,28 @@ productList.appendChild(card)
 
 ## 🧩 Pseudo-code
 ```
-productNames = ["...", "...", "..."]
-productPricesHT = [12.5, 19.99, 7.5]
+- Créer un tableau contenant plusieurs noms de produits
+  (au moins 3)
 
-console.log(productNames.length)
+- Créer un deuxième tableau contenant les prix HT
+  dans le même ordre que les noms
 
-function displayProductsInConsole():
-    for i allant de 0 à productNames.length:
-        name = productNames[i]
-        priceHT = productPricesHT[i]
-        TTC = calculatePriceTTC(priceHT)
-        formatted = formatPrice(TTC)
-        console.log(name + " — " + formatted)
+- Afficher dans la console la taille du tableau de noms
+  (indice : utiliser la propriété qui donne le nombre d’éléments d’un tableau)
 
-displayProductsInConsole()
+- Définir une fonction qui :
+    • parcourt les tableaux avec une boucle
+      (indice : utiliser un index numérique qui commence à 0)
+    • pour chaque position :
+        - récupérer le nom du produit
+        - récupérer le prix HT correspondant
+        - calculer le prix TTC avec la fonction prévue pour ça
+        - formater le prix TTC
+        - construire une phrase avec le nom et le prix TTC
+        - afficher cette phrase dans la console
+
+- Appeler cette fonction pour vérifier que tous les produits sont affichés
+
 ```
 ---
 
@@ -356,21 +408,36 @@ displayProductsInConsole()
 
 ## 🧩 Pseudo-code
 ```
-products = [
-    { id: 1, name: "...", priceHT: ..., description: "...", image: "..." },
-    { id: 2, name: "...", priceHT: ..., description: "...", image: "..." },
-    ...
-]
+- Créer un tableau contenant plusieurs produits
+  (chaque produit regroupe ses informations dans une même structure)
+  (indice : utiliser une syntaxe qui permet de stocker plusieurs propriétés ensemble)
 
-productList = getElementById("product-list")
+- Chaque produit doit au minimum contenir :
+    • un identifiant
+    • un nom
+    • un prix HT
+    • une description
+    • une image (URL)
 
-function displayProductsInPage():
-    productList.innerHTML = ""
-    for chaque product dans products:
-        card = createProductCard(product)
-        productList.appendChild(card)
+- Récupérer la zone du DOM où tous les produits doivent être affichés
 
-displayProductsInPage()
+- Adapter ou créer une fonction qui :
+    • reçoit un produit en paramètre
+    • crée un conteneur pour la carte
+    • crée les éléments nécessaires (image, nom, prix TTC, description)
+    • utilise les propriétés du produit pour remplir ces éléments
+    • réutilise les fonctions de calcul et de formatage de prix
+    • renvoie la carte complète
+
+- Créer une fonction qui :
+    • vide le contenu de la zone d’affichage des produits
+    • parcourt le tableau de produits
+    • pour chaque produit :
+        - crée une carte à partir de ce produit
+        - ajoute cette carte dans la zone d’affichage
+
+- Appeler cette fonction pour afficher tous les produits dans la page
+
 ```
 ---
 
@@ -416,38 +483,38 @@ displayProductsInPage()
 
 ## 🧩 Pseudo-code
 ```
-cartItemCount = 0
-cartTotal = 0
+- Créer des variables globales pour représenter l’état du panier :
+    • nombre d’articles
+    • total du panier (en TTC)
 
-function generateCartMessage(total):
-    if (total === 0):
-        return "Votre panier est vide."
-    else if (total < 50):
-        return "Ajoutez encore des produits pour atteindre 50 € et débloquer la livraison offerte."
-    else:
-        return "Livraison offerte 🎉 Merci pour votre commande !"
+- Définir une fonction qui :
+    • reçoit un total en paramètre
+    • retourne un texte différent selon la valeur du total :
+        - si le total est égal à 0 → message “panier vide”
+        - si le total est inférieur à un certain seuil → message d’encouragement
+        - sinon → message indiquant un avantage (ex : livraison offerte)
+      (indice : utiliser une structure avec if / else if / else)
 
-cartCountElement = getElementById("cart-count")
-cartTotalElement = getElementById("cart-total")
-cartMessageElement = getElementById("cart-message")
+- Récupérer dans le DOM :
+    • l’élément qui affiche le nombre d’articles
+    • l’élément qui affiche le total
+    • l’élément qui affiche le message du panier
 
-function updateCartDisplay():
-    cartCountElement.textContent = cartItemCount
-    cartTotalElement.textContent = formatPrice(cartTotal)
-    cartMessageElement.textContent = generateCartMessage(cartTotal)
+- Définir une fonction qui :
+    • met à jour l’affichage du nombre d’articles
+    • met à jour l’affichage du total
+      (indice : penser à réutiliser la fonction de formatage de prix)
+    • met à jour le message du panier en utilisant la fonction de génération de message
 
-// Tests manuels
-cartItemCount = 0
-cartTotal = 0
-updateCartDisplay()
+- Modifier manuellement les valeurs du nombre d’articles et du total
+  dans le code pour simuler différents cas :
+    • panier vide
+    • panier avec un total faible
+    • panier avec un total suffisant pour obtenir l’avantage
 
-cartItemCount = 2
-cartTotal = 30
-updateCartDisplay()
+- Appeler la fonction de mise à jour de l’affichage après chaque modification
+  pour vérifier le comportement dans chaque cas
 
-cartItemCount = 4
-cartTotal = 60
-updateCartDisplay()
 ```
 ---
 
@@ -505,35 +572,35 @@ updateCartDisplay()
 
 ## 🧩 Pseudo-code
 ```
-cartItemCount = 0
-cartTotal = 0
+- Vérifier que l’on dispose :
+    • du tableau de produits
+    • des variables qui représentent le panier (nombre d’articles + total)
+    • des fonctions pour calculer le prix TTC et pour formater le prix
+    • de la fonction qui met à jour l’affichage du panier
+      (nombre, total, message)
 
-function addToCart(product):
-    priceTTC = calculatePriceTTC(product.priceHT)
-    cartTotal = cartTotal + priceTTC
-    cartItemCount = cartItemCount + 1
-    updateCartDisplay()
+- Dans la fonction qui crée une carte produit :
+    • ajouter un bouton pour permettre l’ajout au panier
+    • ajouter un écouteur d’événement sur ce bouton
+      (indice : utiliser la méthode qui permet de réagir à un "click")
+    • dans cet écouteur, appeler une fonction responsable d’ajouter ce produit au panier
 
-function createProductCard(product):
-    card = createElement("article")
-    // ... image, titre, prix, description ...
-    button = createElement("button")
-    button.textContent = "Ajouter au panier"
+- Définir une fonction qui :
+    • reçoit un produit en paramètre
+    • calcule le prix TTC de ce produit
+    • ajoute ce montant au total du panier
+    • augmente le nombre d’articles dans le panier
+    • appelle la fonction de mise à jour de l’affichage du panier
 
-    button.addEventListener("click", function():
-        addToCart(product)
-    )
+- Au chargement de la page :
+    • afficher tous les produits (en utilisant la fonction de l’exercice précédent)
+    • initialiser l’affichage du panier une première fois
 
-    card.appendChild(button)
-    return card
+- Tester en cliquant sur différents boutons d’ajout au panier
+  pour vérifier que :
+    • le nombre d’articles augmente
+    • le total se met à jour
+    • le message du panier change en fonction du total
 
-function displayProductsInPage():
-    productList.innerHTML = ""
-    pour chaque product dans products:
-        card = createProductCard(product)
-        productList.appendChild(card)
-
-displayProductsInPage()
-updateCartDisplay()
 ```
 

@@ -1,31 +1,41 @@
 /*************************************************
- * EXERCICE 5 - Afficher 1 produit dans la page
- * Notions : getElementById, createElement, appendChild
+ * EXERCICE 5 - Afficher un produit vedette
+ * Notions : DOM, createElement, appendChild,
+ *           réutilisation des fonctions de prix
  *************************************************/
 
-/* --- Correction Exercice 1 --- */
+/* --- Correction Exercices 1 à 4 --- */
 
-// Données de base de la boutique
+/* Exercice 1 - Variables & infos de base */
+
 const shopName = "Ma Boutique JS";
 const city = "Lyon";
 let isOpen = true;
 let productCount = 3;
 let slogan = "Des goodies pour développeurs passionnés !";
 
-// Mise à jour de la tagline
-const taglineElement = document.querySelector(".site-tagline");
-if (taglineElement) {
-  taglineElement.textContent =
-    "Bienvenue dans " + shopName + " à " + city + " 👋";
+console.log("Bienvenue dans " + shopName + " située à " + city);
+console.log("Slogan :", slogan);
+
+if (isOpen) {
+  console.log("La boutique est ouverte.");
+} else {
+  console.log("La boutique est fermée.");
 }
 
-// Année dans le footer
+// Mise à jour d'un élément de tagline (si présent dans la page)
+const taglineElement = document.querySelector(".site-tagline");
+if (taglineElement) {
+  taglineElement.textContent = `Bienvenue dans ${shopName} à ${city} 👋`;
+}
+
+// Année dans le footer (si span#year présent)
 const yearSpan = document.getElementById("year");
 if (yearSpan) {
   yearSpan.textContent = new Date().getFullYear();
 }
 
-/* --- Correction Exercice 2 : chaînes de caractères --- */
+/* Exercice 2 - Chaînes de caractères & messages */
 
 let welcomeMessage =
   "Bienvenue dans " + shopName + " située à " + city + " !";
@@ -36,116 +46,98 @@ let sloganLength = slogan.length;
 let sloganUppercase = slogan.toUpperCase();
 let sloganModified = slogan.replace("goodies", "trésors");
 
-console.log(welcomeMessage);
-console.log(welcomeMessage2);
+console.log("welcomeMessage :", welcomeMessage);
+console.log("welcomeMessage2 :", welcomeMessage2);
 console.log("Longueur du slogan :", sloganLength);
-console.log("Version majuscules :", sloganUppercase);
-console.log("Version modifiée :", sloganModified);
+console.log("Slogan en majuscules :", sloganUppercase);
+console.log("Slogan modifié :", sloganModified);
 
-/* --- Correction Exercice 3 : Nombres & TVA --- */
+// Utilisation du slogan modifié dans un éventuel message de panier
+const cartMessageElementEx2 = document.getElementById("cart-message");
+if (cartMessageElementEx2) {
+  cartMessageElementEx2.textContent =
+    sloganModified + ` (${sloganLength} caractères dans le slogan original)`;
+}
 
+/* Exercice 3 - Nombres & calculs */
+
+let priceHTExample = 20;
 const VAT = 0.2;
 
-let examplePriceHT = 10;
-let examplePriceTTC = examplePriceHT + examplePriceHT * VAT;
+let priceTTCExample = priceHTExample + priceHTExample * VAT;
 
-console.log("Exemple prix HT :", examplePriceHT);
-console.log("Exemple prix TTC :", examplePriceTTC);
+console.log("Prix HT d'exemple :", priceHTExample);
+console.log("Prix TTC d'exemple :", priceTTCExample);
 
 let salesCount = 0;
 salesCount++;
-console.log("Nombre de ventes :", salesCount);
+console.log("Nombre de ventes après incrémentation :", salesCount);
 
-/* --- Correction Exercice 4 : Fonctions de prix --- */
+/* Exercice 4 - Fonctions de prix */
 
 function calculatePriceTTC(priceHT) {
   return priceHT + priceHT * VAT;
 }
 
 function formatPrice(price) {
-  return price.toFixed(2).replace(".", ",") + " €";
+  return price.toFixed(2) + " €";
 }
 
-console.log("Test format :", formatPrice(calculatePriceTTC(19.99)));
+// Tests simples
+const testPrice1 = calculatePriceTTC(10);
+const testPrice2 = calculatePriceTTC(19.99);
 
-/*************************************************
- * --- Nouveautés EXERCICE 5 ---
- * Objectif : afficher UN produit dans la page
- *************************************************/
+console.log("Test 1 TTC formaté :", formatPrice(testPrice1));
+console.log("Test 2 TTC formaté :", formatPrice(testPrice2));
 
-/**
- * Produit vedette (un seul produit)
- */
-const featuredProduct = {
-  name: "T-shirt Code & Chill",
-  priceHT: 19.99,
-  description: "Un t-shirt confortable pour coder des heures.",
-  image:
-    "https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg?auto=compress&cs=tinysrgb&w=600",
-};
+/* --- Nouveautés Exercice 5 --- */
+/* Afficher un produit vedette dans la page (sans objets) */
 
-/**
- * Conteneur dans lequel afficher la carte du produit
- */
-const productListElement = document.getElementById("product-list");
+// 1) Variables du produit vedette
+let featuredProductName = "T-shirt Code & Chill";
+let featuredProductPriceHT = 19.99;
+let featuredProductDescription = "Parfait pour coder confortablement.";
+let featuredProductImage = "https://images.unsplash.com/photo-1561347981-969c80cf4463?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
-/**
- * Fonction utilitaire : crée une carte produit (DOM)
- */
-function createProductCard(product) {
+// 2) Récupération de la section qui accueillera le produit
+const productList = document.getElementById("product-list");
+
+// 3) Fonction de création de la carte produit
+function createFeaturedProductCard() {
   const article = document.createElement("article");
   article.classList.add("product-card");
 
-  // Image
   const img = document.createElement("img");
+  img.src = featuredProductImage;
+  img.alt = featuredProductName;
   img.classList.add("product-image");
-  img.src = product.image;
-  img.alt = product.name;
 
-  // Titre
-  const titleElement = document.createElement("h3");
-  titleElement.classList.add("product-name");
-  titleElement.textContent = product.name;
+  const title = document.createElement("h3");
+  title.textContent = featuredProductName;
+  title.classList.add("product-title");
 
-  // Prix TTC
-  const priceElement = document.createElement("p");
-  priceElement.classList.add("product-price");
-  const priceTTC = calculatePriceTTC(product.priceHT);
-  priceElement.textContent = formatPrice(priceTTC);
+  const priceElt = document.createElement("p");
+  const priceTTC = calculatePriceTTC(featuredProductPriceHT);
+  priceElt.textContent = formatPrice(priceTTC);
+  priceElt.classList.add("product-price");
 
-  // Description
-  const descriptionElement = document.createElement("p");
-  descriptionElement.classList.add("product-desc");
-  descriptionElement.textContent = product.description;
+  const desc = document.createElement("p");
+  desc.textContent = featuredProductDescription;
+  desc.classList.add("product-description");
 
-  // Construction de la carte
   article.appendChild(img);
-  article.appendChild(titleElement);
-  article.appendChild(priceElement);
-  article.appendChild(descriptionElement);
+  article.appendChild(title);
+  article.appendChild(priceElt);
+  article.appendChild(desc);
 
   return article;
 }
 
-/**
- * Afficher la carte du produit vedette dans la page
- */
-function displayFeaturedProduct() {
-  if (!productListElement) return;
-
-  productListElement.innerHTML = ""; // vider le conteneur
-  const card = createProductCard(featuredProduct);
-  productListElement.appendChild(card);
-}
-
-// Affichage initial
-displayFeaturedProduct();
-
-/* --- Petit message visuel pour l'exercice --- */
-const cartMessageElement = document.getElementById("cart-message");
-if (cartMessageElement) {
-  cartMessageElement.textContent =
-    "Exercice 5 : affichage du produit vedette dans la page 🛍️";
+// 4) Affichage du produit vedette dans la page
+if (productList) {
+  productList.innerHTML = "";
+  const card = createFeaturedProductCard();
+  productList.appendChild(card);
 }
 
 console.log("Exercice 5 chargé ✅");
