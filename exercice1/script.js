@@ -15,15 +15,11 @@ console.log("Slogan :", slogan);
 
 // Mise à jour de la tagline
 const taglineElement = document.querySelector(".site-tagline");
-if (taglineElement) {
-  taglineElement.textContent =
-    "Bienvenue dans " + shopName + " à " + city + " 👋";
-}
+
 
 // Année dans le footer
 const yearSpan = document.getElementById("year");
-if (yearSpan) {
   yearSpan.textContent = new Date().getFullYear();
-}
 
 console.log("Exercice 1 chargé ✅");
+

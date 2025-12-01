@@ -1,7 +1,7 @@
 # JeSuis
 Une boutique de goodies JS en ligne
-# 🌍 Projet Fil Rouge — Ma Boutique JS  
-## 📘 Fichier Global (FR + EN) — Version Élèves  
+# 🌍 Projet Fil Rouge — JeSuis - un iencli  
+## 📘 Fichier Global  
 Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solutions)
 
 ---
@@ -32,7 +32,6 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
 - let / const  
 - string, number, boolean  
 - console.log()  
-- Condition simple (if / else)
 
 ## 📝 Consignes détaillées
 1. Crée une variable contenant le **nom de la boutique**.  
@@ -43,7 +42,7 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
 6. Affiche dans la console :  
    - un message de bienvenue contenant le nom de la boutique et la ville  
    - le slogan  
-   - un message indiquant si la boutique est ouverte ou fermée  
+   - un message indiquant que la ouverte.
 
 > 💡 Avant de choisir comment déclarer chaque variable, pose-toi la question :  
 > “Est-ce que cette valeur est amenée à changer pendant l’exécution du programme ?”
@@ -57,14 +56,11 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
 - Créer une variable pour le slogan
 
 - Afficher un message de bienvenue dans la console
-  (indice : concaténer texte + variables)
 
 - Afficher le slogan dans la console
 
-- Selon la variable qui indique si la boutique est ouverte :
   - afficher dans la console un message “ouverte”
   - ou un message “fermée”
-  (indice : utiliser une condition simple avec if / else)
 
 ```
 ---
