@@ -61,3 +61,4 @@ const cartMessageElement = document.getElementById("cart-message");
 // }
 
 console.log("Exercice 2 chargé ✅");
+

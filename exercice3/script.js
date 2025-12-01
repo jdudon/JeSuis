@@ -32,10 +32,12 @@ let sloganModified = slogan.replace("goodies", "trésors");
 /* --- Nouveautés Exercice 3 --- */
 
 // Prix d'exemple et TVA
-let examplePriceHT = 20;
-const VAT = 0.2;
 
-let examplePriceTTC = examplePriceHT + examplePriceHT * VAT;
+
+let examplePriceHT = 20;
+const TVA = 0.2;
+
+let examplePriceTTC = examplePriceHT + (examplePriceHT * TVA);
 
 console.log("Prix HT exemple :", examplePriceHT);
 console.log("Prix TTC exemple :", examplePriceTTC);
@@ -46,6 +48,20 @@ salesCount++;
 salesCount++;
 
 console.log("Nombre de ventes :", salesCount);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* --- Rendu visuel Exo 3 --- */
 

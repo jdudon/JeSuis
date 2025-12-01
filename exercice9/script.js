@@ -56,9 +56,9 @@ if (cartMessageElementEx2) {
 /* --- Correction Exercice 3 - Nombres & calculs --- */
 
 let priceHTExample = 20;
-const VAT = 0.2;
+const TVA = 0.2;
 
-let priceTTCExample = priceHTExample + priceHTExample * VAT;
+let priceTTCExample = priceHTExample + priceHTExample * TVA;
 console.log("Prix HT d'exemple :", priceHTExample);
 console.log("Prix TTC d'exemple :", priceTTCExample);
 
@@ -69,7 +69,7 @@ console.log("Nombre de ventes après incrémentation :", salesCount);
 /* --- Correction Exercice 4 - Fonctions de prix --- */
 
 function calculatePriceTTC(priceHT) {
-  return priceHT + priceHT * VAT;
+  return priceHT + priceHT * TVA;
 }
 
 function formatPrice(price) {
@@ -237,7 +237,12 @@ const cartCountElement = document.getElementById("cart-count");
 const cartTotalElement = document.getElementById("cart-total");
 const cartMessageElement = document.getElementById("cart-message");
 
+
+const cartCountAsideElement = document.getElementById("cart-count-aside");
+const cartTotalAsideElement = document.getElementById("cart-total-aside");
+
 function updateCartDisplay() {
+  // Header
   if (cartCountElement) {
     cartCountElement.textContent = cartItemCount.toString();
   }
@@ -246,10 +251,21 @@ function updateCartDisplay() {
     cartTotalElement.textContent = formatPrice(cartTotal);
   }
 
+  // Message (aside)
   if (cartMessageElement) {
     cartMessageElement.textContent = generateCartMessage(cartTotal);
   }
+
+  // Aside
+  if (cartCountAsideElement) {
+    cartCountAsideElement.textContent = cartItemCount.toString();
+  }
+
+  if (cartTotalAsideElement) {
+    cartTotalAsideElement.textContent = formatPrice(cartTotal);
+  }
 }
+
 
 // Pour l'exercice 9, on ne garde pas les tests manuels de l'exercice 8.
 // On initialise simplement l'affichage du panier à 0.
@@ -292,7 +308,8 @@ function createProductCard(product) {
 
   const button = document.createElement("button");
   button.textContent = "Ajouter au panier";
-  button.classList.add("btn-add-to-cart");
+  button.classList.add("btn-add");
+
 
   button.addEventListener("click", function () {
     addToCart(product);

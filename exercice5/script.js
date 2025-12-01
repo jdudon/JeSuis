@@ -62,9 +62,9 @@ if (cartMessageElementEx2) {
 /* Exercice 3 - Nombres & calculs */
 
 let priceHTExample = 20;
-const VAT = 0.2;
+const TVA = 0.2;
 
-let priceTTCExample = priceHTExample + priceHTExample * VAT;
+let priceTTCExample = priceHTExample + priceHTExample * TVA;
 
 console.log("Prix HT d'exemple :", priceHTExample);
 console.log("Prix TTC d'exemple :", priceTTCExample);
@@ -76,7 +76,7 @@ console.log("Nombre de ventes après incrémentation :", salesCount);
 /* Exercice 4 - Fonctions de prix */
 
 function calculatePriceTTC(priceHT) {
-  return priceHT + priceHT * VAT;
+  return priceHT + priceHT * TVA;
 }
 
 function formatPrice(price) {
@@ -134,10 +134,8 @@ function createFeaturedProductCard() {
 }
 
 // 4) Affichage du produit vedette dans la page
-if (productList) {
   productList.innerHTML = "";
   const card = createFeaturedProductCard();
   productList.appendChild(card);
-}
 
 console.log("Exercice 5 chargé ✅");

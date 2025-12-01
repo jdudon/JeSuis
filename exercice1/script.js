@@ -22,4 +22,3 @@ const yearSpan = document.getElementById("year");
   yearSpan.textContent = new Date().getFullYear();
 
 console.log("Exercice 1 chargé ✅");
-

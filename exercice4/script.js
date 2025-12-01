@@ -29,16 +29,16 @@ let sloganLength = slogan.length;
 let sloganUppercase = slogan.toUpperCase();
 let sloganModified = slogan.replace("goodies", "trésors");
 
-const VAT = 0.2;
+const TVA = 0.2;
 let examplePriceHT = 20;
-let examplePriceTTC = examplePriceHT + examplePriceHT * VAT;
+let examplePriceTTC = examplePriceHT + examplePriceHT * TVA;
 let salesCount = 2;
 
 /* --- Nouveautés Exercice 4 --- */
 
 // Fonction qui calcule un prix TTC à partir d'un prix HT
 function calculatePriceTTC(priceHT) {
-  return priceHT + priceHT * VAT;
+  return priceHT + priceHT * TVA;
 }
 
 // Fonction qui formate un prix en "xx,xx €"

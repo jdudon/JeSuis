@@ -199,13 +199,13 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
 
 ## 🧩 Pseudo-code
 ```
-- Définir une fonction qui :
+- Définir une fonction (calculatePriceTTC(priceHT)) qui :
     • reçoit un prix HT en paramètre
     • calcule le prix TTC (en réutilisant la formule de l’exercice 3)
     • renvoie le prix TTC
 
-- Définir une autre fonction qui :
-    • reçoit un prix (nombre)
+- Définir une autre fonction (formatPrice(price)) qui :
+    • reçoit un prix ( type :nombre)
     • arrondit ce prix à 2 décimales
     • ajoute le symbole de la monnaie
     • renvoie le résultat sous forme de texte
@@ -276,19 +276,18 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
 ---
 
 ## 🧩 Pseudo-code
-
+```
 - Créer des variables pour :
-  nom du produit, prix HT, description, image
+  nom du produit (featuredProductName), prix HT (featuredProductPriceHT), description (featuredProductDescription), image (featuredProductImage)
 
 - Récupérer la section HTML où afficher le produit
   (indice : utilisez une méthode du DOM qui sélectionne un élément par son id)
 
-- Définir une fonction qui :
+- Définir une fonction (createFeaturedProductCard()) qui :
     • crée un conteneur pour la carte  
       (indice : il existe une méthode du DOM pour créer un élément HTML)
     • crée une image :
-        - lui donner l’URL
-        - lui donner un texte alternatif
+        - lui donner la source de l'image
       (indice : pensez aux propriétés des balises <img>)
     • crée un titre et lui mettre le nom du produit  
       (indice : une propriété permet d’écrire du texte dans un élément)
@@ -308,63 +307,46 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
 
 - Ajouter le résultat dans la section prévue
   (indice : même méthode que pour assembler les éléments dans la carte)
-
+```
 ---
 
-# 🟫 EXERCICE 6 — Tableaux simples & boucle for
+## 🧪 EXERCICE 6 — Boucle foreach & tableaux simples
 
-## 🎯 Objectifs
-- Manipuler des tableaux simples
-- Comprendre l’indexation : `array[i]`
-- Parcourir un tableau avec une boucle `for`
-- Réutiliser les fonctions `calculatePriceTTC()` et `formatPrice()`
+### 🎯 Objectifs
+- manipuler des tableaux simples
+- comprendre comment `forEach()` parcourt un tableau
+- réutiliser les fonctions de calcul/formatage déjà créées
+- afficher des résultats structurés dans la console
 
-## 🧠 Notions
-- Tableaux `[]`
-- Propriété `.length`
-- Boucle `for`
-- Appels de fonctions dans une boucle
+### 📝 Consignes détaillées
+1. Crée un tableau (productNames) contenant **les noms de plusieurs produits** (au moins 3).
+2. Crée un second tableau (productPricesHT) contenant **les prix HT correspondants**, dans le même ordre que les noms.
+3. Affiche dans la console :
+   - la **taille** du tableau des produits
+4. Crée une fonction `afficherProduitsConsole()` qui :
+   - parcourt les noms de produits avec **forEach()**
+   - récupère le prix HT correspondant (indice : utiliser l’index fourni par `forEach`)
+   - calcule le prix TTC avec la fonction déjà créée
+   - formate ce prix avec la fonction déjà créée
+   - affiche dans la console une phrase du type :
+     ```
+     Produit : Nom — Prix : XX,XX €
+     ```
+5. Appelle la fonction pour vérifier l'affichage.
 
-## 📝 Consignes détaillées
-1. Crée un tableau `productNames` contenant les **noms de plusieurs produits** (au moins 3).  
-2. Crée un tableau `productPricesHT` contenant leurs **prix HT**, dans le **même ordre**.  
-3. Affiche dans la console la **longueur** du tableau `productNames`.  
-4. Crée une fonction `displayProductsInConsole()` qui :
-   - parcourt les deux tableaux avec une boucle `for`  
-   - récupère le **nom** du produit avec `productNames[i]`  
-   - récupère le **prix HT** avec `productPricesHT[i]`  
-   - calcule le **prix TTC** grâce à `calculatePriceTTC()`  
-   - formate le prix TTC grâce à `formatPrice()`  
-   - affiche une ligne du type :  
-     `"Produit 1 : Mug JS — 14,99 € TTC"`  
-5. Appelle la fonction.
-
-> 💡 Cet exercice introduit la logique “deux tableaux synchronisés”, avant de passer aux objets dans l’exercice suivant.
-
-## 🧩 Pseudo-code
+### 🔍 Pseudo-code
 ```
-- Créer un tableau contenant plusieurs noms de produits
-  (au moins 3)
-
-- Créer un deuxième tableau contenant les prix HT
-  dans le même ordre que les noms
-
-- Afficher dans la console la taille du tableau de noms
-  (indice : utiliser la propriété qui donne le nombre d’éléments d’un tableau)
-
-- Définir une fonction qui :
-    • parcourt les tableaux avec une boucle
-      (indice : utiliser un index numérique qui commence à 0)
-    • pour chaque position :
-        - récupérer le nom du produit
-        - récupérer le prix HT correspondant
-        - calculer le prix TTC avec la fonction prévue pour ça
-        - formater le prix TTC
-        - construire une phrase avec le nom et le prix TTC
-        - afficher cette phrase dans la console
-
-- Appeler cette fonction pour vérifier que tous les produits sont affichés
-
+- créer tableau (productNames)
+- créer tableau (productPricesHT)
+- afficher dans la console la longueur du tableau (le nombre d'éléments à l'intérieur)
+- définir fonction (afficherProduitsConsole()):
+  - `Pour chaque nom dans mon tableau productNames:`
+    (indice : il faudra récupérer l'index de chaque nom en plus. Donc on doit récupérer 2 informations.)
+      - récupérer prix HT via `prixHT[index]`
+      - calculer le prix TTC (avec une fonction créée plus tôt dans nos exercices)
+      - formatter prix (avec une fonction créée plus tôt dans nos exercices)
+      - afficher dans la console la phrase : "Produit : Nom — Prix : XX,XX €"
+- appeler la fonction
 ```
 ---
 

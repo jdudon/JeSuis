@@ -58,9 +58,9 @@ if (cartMessageElementEx2) {
 /* --- Correction Exercice 3 - Nombres & calculs --- */
 
 let priceHTExample = 20;
-const VAT = 0.2;
+const TVA = 0.2;
 
-let priceTTCExample = priceHTExample + priceHTExample * VAT;
+let priceTTCExample = priceHTExample + priceHTExample * TVA;
 
 console.log("Prix HT d'exemple :", priceHTExample);
 console.log("Prix TTC d'exemple :", priceTTCExample);
@@ -72,7 +72,7 @@ console.log("Nombre de ventes après incrémentation :", salesCount);
 /* --- Correction Exercice 4 - Fonctions de prix --- */
 
 function calculatePriceTTC(priceHT) {
-  return priceHT + priceHT * VAT;
+  return priceHT + priceHT * TVA;
 }
 
 function formatPrice(price) {
@@ -158,21 +158,22 @@ const products = [
     name: "T-shirt JS",
     priceHT: 19.99,
     description: "T-shirt confortable pour développeurs JavaScript.",
-    image: "images/tshirt-js.jpg"
+    image: "https://images.unsplash.com/photo-1561347981-969c80cf4463?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+
   },
   {
     id: 2,
     name: "Mug Debug",
     priceHT: 9.99,
     description: "Mug pour déboguer avec du café ☕.",
-    image: "images/mug-debug.jpg"
+    image: "https://images.unsplash.com/photo-1639755507638-e34150b56db2?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
     id: 3,
     name: "Sticker Bug Free",
     priceHT: 2.5,
     description: "Un sticker pour célébrer les bugs corrigés.",
-    image: "images/sticker-bug-free.jpg"
+    image: "https://images.unsplash.com/photo-1662389943678-df7f58b730e8?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   }
 ];
 
@@ -242,9 +243,11 @@ function generateCartMessage(total) {
 const cartCountElement = document.getElementById("cart-count");
 const cartTotalElement = document.getElementById("cart-total");
 const cartMessageElement = document.getElementById("cart-message");
+const cartCountAsideElement = document.getElementById("cart-count-aside");
+const cartTotalAsideElement = document.getElementById("cart-total-aside");
 
-// Met à jour l'affichage du panier
 function updateCartDisplay() {
+  // Header
   if (cartCountElement) {
     cartCountElement.textContent = cartItemCount.toString();
   }
@@ -253,10 +256,21 @@ function updateCartDisplay() {
     cartTotalElement.textContent = formatPrice(cartTotal);
   }
 
+  // Message (aside)
   if (cartMessageElement) {
     cartMessageElement.textContent = generateCartMessage(cartTotal);
   }
+
+  // Aside
+  if (cartCountAsideElement) {
+    cartCountAsideElement.textContent = cartItemCount.toString();
+  }
+
+  if (cartTotalAsideElement) {
+    cartTotalAsideElement.textContent = formatPrice(cartTotal);
+  }
 }
+
 
 /* Tests manuels de l'état du panier */
 
