@@ -374,7 +374,7 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
    - `description`  
    - `image` (URL)  
 2. Récupère dans le DOM l’élément `<section id="product-list">`.  
-3. Assure-toi que ta fonction `createProductCard(product)` fonctionne correctement avec les objets du tableau.  
+3. Assure-toi que ta fonction `createProductCard(product)` fonctionne correctement avec les objets du tableau en la recréant (sert toi de l'ancienne version de la fonction pour t'aider).  
 4. Crée une fonction `displayProductsInPage()` qui :
    - vide le conteneur  
    - parcourt le tableau `products`  
