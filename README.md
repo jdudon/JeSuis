@@ -419,166 +419,238 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
 ```
 ---
 
-# 🟫 EXERCICE 8 — Panier & conditions (sans clic)
+## 💻📝 EXERCICE 8 — Panier & conditions (sans clics)
 
-## 🎯 Objectifs
-- Gérer un état global de panier (nombre d’articles + total)
-- Générer un message différent selon le montant du panier
-- Mettre à jour le DOM en fonction de cet état
-- Tester plusieurs scénarios de panier (vide, partiel, livraison offerte)
+### 🎯 Objectifs
+- Gérer un **état de panier** avec des variables globales
+- Afficher cet état dans **plusieurs zones du DOM** (header + aside + message)
+- Utiliser des **conditions** (`if / else if / else`) pour afficher un message différent selon le total
+- Réutiliser la fonction `formatPrice()` déjà créée
 
-## 🧠 Notions
-- Variables globales (`cartItemCount`, `cartTotal`)
-- Comparaisons (`===`, `<`, `>=`)
-- Conditions `if / else if / else`
-- Mise à jour du DOM avec `.textContent`
-- Réutilisation de fonctions
-
-## 📝 Consignes détaillées
-1. Crée deux variables globales pour représenter l’état du panier :
-   - `cartItemCount` (nombre d’articles dans le panier)  
-   - `cartTotal` (total du panier en TTC)  
-2. Crée une fonction `generateCartMessage(total)` qui renvoie :
-   - `"Votre panier est vide."` si `total` vaut `0`  
-   - un message d’incitation si `total` est **strictement inférieur** à `50`  
-   - un message `"Livraison offerte 🎉"` (ou équivalent) si `total` est **supérieur ou égal** à `50`  
-3. Récupère les éléments liés au panier dans le DOM, par exemple :
-   - `cart-count` → affichage du nombre d’articles  
-   - `cart-total` → affichage du total formaté  
-   - `cart-message` → affichage du message généré  
-4. Crée une fonction `updateCartDisplay()` qui :
-   - met à jour l’affichage du **nombre d’articles**  
-   - met à jour l’affichage du **total** (tu peux utiliser `formatPrice(cartTotal)`)  
-   - met à jour le **message** du panier avec `generateCartMessage(cartTotal)`  
-5. Modifie manuellement dans ton code les valeurs de `cartItemCount` et `cartTotal` pour tester :
-   - un panier **vide**  
-   - un panier avec total **< 50**  
-   - un panier avec total **≥ 50**  
-   À chaque fois, appelle `updateCartDisplay()` et observe le rendu dans la page.
-
-> 💡 Ici, on “triche” encore un peu : on change les valeurs à la main pour tester la logique.  
-> Dans l’exercice suivant, ce sera fait automatiquement grâce aux clics sur les boutons.
-
-## 🧩 Pseudo-code
-```
-- Créer des variables globales pour représenter l’état du panier :
-    • nombre d’articles
-    • total du panier (en TTC)
-
-- Définir une fonction qui :
-    • reçoit un total en paramètre
-    • retourne un texte différent selon la valeur du total :
-        - si le total est égal à 0 → message “panier vide”
-        - si le total est inférieur à un certain seuil → message d’encouragement
-        - sinon → message indiquant un avantage (ex : livraison offerte)
-      (indice : utiliser une structure avec if / else if / else)
-
-- Récupérer dans le DOM :
-    • l’élément qui affiche le nombre d’articles
-    • l’élément qui affiche le total
-    • l’élément qui affiche le message du panier
-
-- Définir une fonction qui :
-    • met à jour l’affichage du nombre d’articles
-    • met à jour l’affichage du total
-      (indice : penser à réutiliser la fonction de formatage de prix)
-    • met à jour le message du panier en utilisant la fonction de génération de message
-
-- Modifier manuellement les valeurs du nombre d’articles et du total
-  dans le code pour simuler différents cas :
-    • panier vide
-    • panier avec un total faible
-    • panier avec un total suffisant pour obtenir l’avantage
-
-- Appeler la fonction de mise à jour de l’affichage après chaque modification
-  pour vérifier le comportement dans chaque cas
-
-```
 ---
 
-# 🟥 EXERCICE 9 — Panier interactif (avec clics)
+## 📚 Notions utilisées
+- Variables globales
+- Conditions : `if`, `else if`, `else`
+- Comparateurs : `===`, `<`, `>=`
+- DOM : `document.getElementById()`, `.textContent`
+- Réutilisation de fonctions existantes (`formatPrice()`)
 
-## 🎯 Objectifs
-- Rendre la boutique interactive
-- Réagir à un clic sur “Ajouter au panier”
-- Mettre à jour l’état du panier (nombre d’articles + total)
-- Actualiser le DOM automatiquement après chaque action
+---
 
-## 🧠 Notions
-- `addEventListener("click", ...)`
-- Fonctions avec paramètres (`addToCart(product)`)
-- Réutilisation d’un état global (`cartItemCount`, `cartTotal`)
-- Mise à jour du DOM (textContent)
-- Réutilisation de fonctions existantes (`calculatePriceTTC`, `formatPrice`, `updateCartDisplay`, `generateCartMessage`)
+## 🧱 Variables, fonctions & éléments DOM à utiliser
+
+- Variables globales du panier :
+  - `cartItemCount` (nombre total d’articles dans le panier)
+  - `cartTotal` (total du panier en TTC)
+
+- Fonctions à créer :
+  - `getCartMessage(total)` → retourne un texte selon la valeur de `total`
+  - `updateCartDisplay()` → met à jour l’affichage du panier dans la page
+
+- Éléments du DOM à récupérer (avec `getElementById`) :
+  - `cart-count` → le nombre d’articles dans la navbar (header)
+  - `cart-total` → le total du panier dans la navbar (header)
+  - `cart-count-aside` → le nombre d’articles dans l’aside
+  - `cart-total-aside` → le total du panier dans l’aside
+  - `cart-message` → le message affiché dans l’aside (sous le panier)
+
+---
 
 ## 📝 Consignes détaillées
-1. Vérifie que tu disposes bien :
-   - du tableau `products` (tableau d’objets produit)  
-   - des fonctions `calculatePriceTTC(priceHT)` et `formatPrice(price)`  
-   - des variables globales `cartItemCount` et `cartTotal`  
-   - de la fonction `generateCartMessage(total)`  
-   - de la fonction `updateCartDisplay()` qui met à jour le DOM du panier  
-2. Modifie la fonction `createProductCard(product)` pour :
-   - créer un bouton (par ex. `<button>Ajouter au panier</button>`)  
-   - ajouter une classe CSS si besoin (ex: `"btn-add"`)  
-   - ajouter un écouteur d’événement :
-     - sur le clic (`"click"`)  
-     - qui appelle la fonction `addToCart(product)`  
-3. Crée une fonction `addToCart(product)` qui :
-   - reçoit un objet `product` en paramètre  
-   - calcule le **prix TTC** du produit avec `calculatePriceTTC(product.priceHT)`  
-   - ajoute ce montant à `cartTotal`  
-   - incrémente `cartItemCount` de 1  
-   - appelle `updateCartDisplay()` pour mettre à jour le DOM (compteur, total, message)  
-4. Vérifie que ta fonction `displayProductsInPage()` :
-   - vide bien le conteneur de produits  
-   - parcourt le tableau `products`  
-   - crée une carte pour chaque produit (avec le bouton inclus)  
-   - ajoute toutes les cartes dans la page  
-5. Au chargement de la page :
-   - appelle `displayProductsInPage()` pour afficher les produits  
-   - appelle `updateCartDisplay()` une première fois pour initialiser l’affichage du panier (0 article, total 0, message de base)  
-6. Teste le comportement :
-   - clique plusieurs fois sur “Ajouter au panier” pour différents produits  
-   - observe comment évoluent :
-     - le nombre d’articles  
-     - le total  
-     - le message du panier  
 
-> 💡 Cet exercice relie enfin toutes les briques :  
-> données (products) → affichage (DOM) → interactions (clics) → mise à jour du panier.
+1. **Créer les variables globales du panier :**
+   - Crée une variable `cartItemCount` initialisée à `0`.  
+   - Crée une variable `cartTotal` initialisée à `0`.  
 
-## 🧩 Pseudo-code
-```
-- Vérifier que l’on dispose :
-    • du tableau de produits
-    • des variables qui représentent le panier (nombre d’articles + total)
-    • des fonctions pour calculer le prix TTC et pour formater le prix
-    • de la fonction qui met à jour l’affichage du panier
-      (nombre, total, message)
+2. **Récupérer les éléments du DOM :**
+   - Récupère l’élément du header qui affiche le nombre d’articles (`id="cart-count"`) et stocke-le dans `cartCountHeader`.
+   - Récupère l’élément du header qui affiche le total (`id="cart-total"`) et stocke-le dans `cartTotalHeader`.
+   - Récupère l’élément de l’aside qui affiche le nombre d’articles (`id="cart-count-aside"`) et stocke-le dans `cartCountAside`.
+   - Récupère l’élément de l’aside qui affiche le total (`id="cart-total-aside"`) et stocke-le dans `cartTotalAside`.
+   - Récupère l’élément qui affichera le message (`id="cart-message"`) et stocke-le dans `cartMessage`.
 
-- Dans la fonction qui crée une carte produit :
-    • ajouter un bouton pour permettre l’ajout au panier
-    • ajouter un écouteur d’événement sur ce bouton
-      (indice : utiliser la méthode qui permet de réagir à un "click")
-    • dans cet écouteur, appeler une fonction responsable d’ajouter ce produit au panier
+3. **Créer la fonction `getCartMessage(total)` :**
+   - Cette fonction prend un paramètre `total`.
+   - À l’intérieur, utilise une structure :
+     - si `total` est égal à `0`, retourne un message du type : “Votre panier est vide.”
+     - sinon, si `total` est inférieur à `50`, retourne un message du type : “Ajoutez encore des produits…”
+     - sinon, retourne un message du type : “Livraison offerte 🎉 …”
+   - Utilise des comparateurs (`===`, `<`) et un `if / else if / else`.
 
-- Définir une fonction qui :
-    • reçoit un produit en paramètre
-    • calcule le prix TTC de ce produit
-    • ajoute ce montant au total du panier
-    • augmente le nombre d’articles dans le panier
-    • appelle la fonction de mise à jour de l’affichage du panier
+4. **Créer la fonction `updateCartDisplay()` :**
+   - À l’intérieur, mets à jour :
+     - le texte de `cartCountHeader` avec `cartItemCount`
+     - le texte de `cartTotalHeader` avec `cartTotal` formaté grâce à `formatPrice(cartTotal)`
+     - le texte de `cartCountAside` avec `cartItemCount`
+     - le texte de `cartTotalAside` avec `cartTotal` formaté
+     - le texte de `cartMessage` avec le résultat de `getCartMessage(cartTotal)`
+   - Pense à vérifier que chaque élément du DOM existe avant de modifier son `textContent` (optionnel mais conseillé).
 
-- Au chargement de la page :
-    • afficher tous les produits (en utilisant la fonction de l’exercice précédent)
-    • initialiser l’affichage du panier une première fois
+5. **Tester plusieurs états du panier (manuellement dans le code) :**
+   - Modifie la valeur de `cartItemCount` et `cartTotal` pour simuler un panier vide, un panier sous 50€ et un panier au-dessus de 50€.
+   - Après chaque modification, appelle `updateCartDisplay()` pour voir le résultat dans la page.
+   - Exemple d’ordre de tests :
+     - `cartItemCount = 0; cartTotal = 0;`
+     - `cartItemCount = 2; cartTotal = 30;`
+     - `cartItemCount = 4; cartTotal = 60;`
 
-- Tester en cliquant sur différents boutons d’ajout au panier
-  pour vérifier que :
-    • le nombre d’articles augmente
-    • le total se met à jour
-    • le message du panier change en fonction du total
+---
 
-```
+## 🧩 Pseudo-code (version guidée)
+
+- Définir `cartItemCount = 0`
+- Définir `cartTotal = 0`
+
+- Récupérer les éléments du DOM :
+  - `cartCountHeader` ← élément avec id `"cart-count"`
+  - `cartTotalHeader` ← élément avec id `"cart-total"`
+  - `cartCountAside` ← élément avec id `"cart-count-aside"`
+  - `cartTotalAside` ← élément avec id `"cart-total-aside"`
+  - `cartMessage` ← élément avec id `"cart-message"`
+
+- Définir la fonction `getCartMessage(total)` :
+  - si `total === 0` → retourner message panier vide
+  - sinon si `total < 50` → retourner message d’encouragement
+  - sinon → retourner message livraison offerte
+
+- Définir la fonction `updateCartDisplay()` :
+  - mettre à jour le texte des éléments du header avec `cartItemCount` et `formatPrice(cartTotal)`
+  - mettre à jour le texte des éléments de l’aside avec `cartItemCount` et `formatPrice(cartTotal)`
+  - mettre à jour le texte du message en appelant `getCartMessage(cartTotal)`
+
+- Tester :
+  - changer `cartItemCount` et `cartTotal`
+  - appeler `updateCartDisplay()`
+  - répéter pour différents cas (0, < 50, >= 50)
+
+---
+
+---
+
+## 💻📝 EXERCICE 9 — Panier interactif (version complète)
+
+### 🎯 Objectifs
+- Réutiliser le panier de l’exercice 8 (variables + affichage)
+- Ajouter des produits au panier **avec un clic sur un bouton**
+- Utiliser un **événement** (`click`) avec `addEventListener`
+- Mettre à jour le DOM de manière dynamique à chaque clic
+
+---
+
+## 📚 Notions utilisées
+- Événements : `addEventListener("click", ...)`
+- Fonctions avec paramètres (`addToCart(product)`)
+- Réutilisation :
+  - `calculatePriceTTC()`
+  - `formatPrice()`
+  - `updateCartDisplay()`
+  - `products` (tableau d’objets)
+  - `createProductCard(product)` et `displayProductsInPage()`
+
+---
+
+## 🧱 Variables, fonctions, classes & éléments DOM à utiliser
+
+- Variables globales (déjà créées à l’exo 8, réutilisées) :
+  - `cartItemCount`
+  - `cartTotal`
+
+- Fonctions à réutiliser :
+  - `calculatePriceTTC(priceHT)`
+  - `formatPrice(price)`
+  - `getCartMessage(total)`
+  - `updateCartDisplay()`
+
+- Fonctions à créer ou modifier :
+  - `addToCart(product)` → ajoute un produit au panier et appelle `updateCartDisplay()`
+  - nouvelle version de `createProductCard(product)` → ajoute un bouton et branche l’événement
+  - `displayProductsInPage()` → affiche les produits avec les nouveaux boutons
+
+- Éléments du DOM :
+  - Section des produits : `productListSection` liée à l’élément avec `id="product-list"`
+
+- Classe CSS pour le bouton “Ajouter au panier” :
+  - `btn-add` (à ajouter avec `classList.add("btn-add")` sur le bouton)
+
+---
+
+## 📝 Consignes détaillées
+
+1. **Réinitialiser l’état du panier au début de l’exercice 9 :**
+   - Remets `cartItemCount` à `0`.
+   - Remets `cartTotal` à `0`.
+   - Appelle `updateCartDisplay()` une première fois pour partir d’un panier vide.
+
+2. **Créer la fonction `addToCart(product)` :**
+   - Cette fonction prend un paramètre `product`.
+   - À l’intérieur :
+     - calcule le prix TTC du produit à partir de `product.priceHT` en utilisant `calculatePriceTTC()`.
+     - ajoute ce montant à `cartTotal`.
+     - augmente `cartItemCount` de 1.
+     - appelle `updateCartDisplay()` pour mettre à jour l’interface.
+
+3. **Mettre à jour la fonction `createProductCard(product)` :**
+   - Reprends la fonction qui :
+     - crée un `<article>`
+     - crée l’image, le nom, le prix TTC, la description
+     - utilise les propriétés de `product` (`product.image`, `product.name`, `product.priceHT`, `product.description`)
+   - Ajoute un bouton :
+     - crée un élément `<button>`.
+     - change son texte : “Ajouter au panier”.
+     - ajoute la classe CSS `btn-add` avec `button.classList.add("btn-add")`.
+   - Ajoute un gestionnaire d’événement sur ce bouton avec `addEventListener("click", ...)` :
+     - dans la fonction appelée au clic, appelle `addToCart(product)`.
+   - Ajoute le bouton à la fin de la carte avant de retourner l’`<article>`.
+
+4. **Mettre à jour ou recréer `displayProductsInPage()` :**
+   - Récupère la section des produits (`productListSection`) liée à `id="product-list"`.
+   - Vide son contenu (`innerHTML = ""`).
+   - Parcourt le tableau `products` (tableau d’objets).
+   - Pour chaque produit :
+     - crée une carte via `createProductCard(product)`.
+     - ajoute la carte dans la section des produits.
+
+5. **Initialisation finale :**
+   - Appelle `displayProductsInPage()` pour afficher tous les produits avec le bouton “Ajouter au panier”.
+   - Appelle `updateCartDisplay()` une dernière fois pour s’assurer que l’affichage du panier est correct au départ.
+   - Teste dans le navigateur :
+     - clique plusieurs fois sur les boutons “Ajouter au panier”
+     - vérifie que le nombre d’articles et le total se mettent bien à jour
+     - vérifie que le message `cart-message` change en fonction du total.
+
+---
+
+## 🧩 Pseudo-code (version guidée)
+
+- Remettre `cartItemCount = 0`
+- Remettre `cartTotal = 0`
+- Appeler `updateCartDisplay()`
+
+- Définir `addToCart(product)` :
+  - calculer `priceTTC` à partir de `product.priceHT`
+  - ajouter `priceTTC` à `cartTotal`
+  - augmenter `cartItemCount`
+  - appeler `updateCartDisplay()`
+
+- Mettre à jour `createProductCard(product)` :
+  - créer un conteneur (article)
+  - créer et remplir les éléments (image, titre, prix TTC, description)
+  - créer un bouton
+    - texte : “Ajouter au panier”
+    - classe CSS : `btn-add`
+    - au clic → appeler `addToCart(product)`
+  - retourner le conteneur
+
+- Définir `displayProductsInPage()` :
+  - vider le contenu de `productListSection`
+  - pour chaque `product` dans `products` :
+    - créer une carte avec `createProductCard(product)`
+    - l’ajouter à `productListSection`
+
+- À la fin du script :
+  - appeler `displayProductsInPage()`
+  - appeler `updateCartDisplay()`
+
+
 
