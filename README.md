@@ -498,7 +498,7 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
 ---
 
 ## 🧩 Pseudo-code (version guidée)
-
+```
 - Définir `cartItemCount = 0`
 - Définir `cartTotal = 0`
 
@@ -523,7 +523,7 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
   - changer `cartItemCount` et `cartTotal`
   - appeler `updateCartDisplay()`
   - répéter pour différents cas (0, < 50, >= 50)
-
+```
 ---
 
 ---
@@ -622,7 +622,7 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
 ---
 
 ## 🧩 Pseudo-code (version guidée)
-
+```
 - Remettre `cartItemCount = 0`
 - Remettre `cartTotal = 0`
 - Appeler `updateCartDisplay()`
@@ -651,6 +651,5 @@ Contient : Objectifs, Notions, Consignes, Pseudo-code (sans corrections ni solut
 - À la fin du script :
   - appeler `displayProductsInPage()`
   - appeler `updateCartDisplay()`
-
-
+```
 

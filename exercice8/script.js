@@ -296,3 +296,13 @@ cartTotal = 60;
 
 console.log("Exercice 8 simplifié chargé ✅");
 
+
+
+
+
+
+
+
+
+
+
