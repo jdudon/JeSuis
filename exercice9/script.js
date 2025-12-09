@@ -266,16 +266,24 @@ function updateCartDisplay() {
   }
 }
 
+/*************************************************
+ * Nouveautés EXERCICE 9 - Panier interactif
+ * Objectif : ajouter des produits au panier avec
+ *            un clic sur un bouton
+ *************************************************/
 
-// Pour l'exercice 9, on ne garde pas les tests manuels de l'exercice 8.
-// On initialise simplement l'affichage du panier à 0.
+// 1) Réinitialiser le panier au démarrage de l'exo 9
 cartItemCount = 0;
 cartTotal = 0;
 updateCartDisplay();
 
-/* --- Nouveautés Exercice 9 - Panier interactif (avec clics) --- */
-
-// Fonction pour ajouter un produit au panier
+/**
+ * 2) Fonction qui ajoute un produit au panier
+ * - reçoit un produit
+ * - calcule son prix TTC
+ * - met à jour le total et le nombre d'articles
+ * - met à jour l'affichage grâce à updateCartDisplay()
+ */
 function addToCart(product) {
   const priceTTC = calculatePriceTTC(product.priceHT);
   cartTotal += priceTTC;
@@ -283,7 +291,11 @@ function addToCart(product) {
   updateCartDisplay();
 }
 
-// Nouvelle version de createProductCard : on ajoute un bouton + écouteur
+/**
+ * 3) Nouvelle version de createProductCard :
+ *    on ajoute juste un bouton "Ajouter au panier"
+ *    et on branche le clic sur addToCart(product).
+ */
 function createProductCard(product) {
   const article = document.createElement("article");
   article.classList.add("product-card");
@@ -308,8 +320,7 @@ function createProductCard(product) {
 
   const button = document.createElement("button");
   button.textContent = "Ajouter au panier";
-  button.classList.add("btn-add");
-
+  button.classList.add("btn-add"); // correspond à ta classe CSS
 
   button.addEventListener("click", function () {
     addToCart(product);
@@ -324,7 +335,10 @@ function createProductCard(product) {
   return article;
 }
 
-// On réutilise displayProductsInPage(), mais avec la nouvelle version de createProductCard
+/**
+ * 4) Réutiliser displayProductsInPage()
+ *    avec la nouvelle createProductCard
+ */
 function displayProductsInPage() {
   if (!productListSection) return;
 
@@ -336,8 +350,8 @@ function displayProductsInPage() {
   }
 }
 
-// Initialisation finales
+// 5) Initialisation finale
 displayProductsInPage();
 updateCartDisplay();
 
-console.log("Exercice 9 chargé ✅");
+console.log("Exercice 9 simplifié chargé ✅");

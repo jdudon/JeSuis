@@ -222,14 +222,25 @@ function displayProductsInPage() {
 
 displayProductsInPage();
 
-/* --- Nouveautés Exercice 8 - Panier & conditions (sans clic) --- */
+/*************************************************
+ * Nouveautés EXERCICE 8 - Panier & conditions
+ * Objectif : afficher un message différent selon
+ *            le total du panier (sans clic)
+ *************************************************/
 
-// Variables globales du panier
+// 1) État du panier
 let cartItemCount = 0;
 let cartTotal = 0;
 
-// Génère un message selon le total du panier
-function generateCartMessage(total) {
+// 2) Éléments du DOM liés au panier
+const cartCountHeader = document.getElementById("cart-count");
+const cartTotalHeader = document.getElementById("cart-total");
+const cartCountAside = document.getElementById("cart-count-aside");
+const cartTotalAside = document.getElementById("cart-total-aside");
+const cartMessage = document.getElementById("cart-message");
+
+// 3) Fonction qui renvoie un message selon le total
+function getCartMessage(total) {
   if (total === 0) {
     return "Votre panier est vide.";
   } else if (total < 50) {
@@ -239,40 +250,34 @@ function generateCartMessage(total) {
   }
 }
 
-// Récupération des éléments du DOM liés au panier
-const cartCountElement = document.getElementById("cart-count");
-const cartTotalElement = document.getElementById("cart-total");
-const cartMessageElement = document.getElementById("cart-message");
-const cartCountAsideElement = document.getElementById("cart-count-aside");
-const cartTotalAsideElement = document.getElementById("cart-total-aside");
-
+// 4) Fonction qui met à jour l’affichage du panier (header + aside + message)
 function updateCartDisplay() {
   // Header
-  if (cartCountElement) {
-    cartCountElement.textContent = cartItemCount.toString();
+  if (cartCountHeader) {
+    cartCountHeader.textContent = cartItemCount.toString();
   }
-
-  if (cartTotalElement) {
-    cartTotalElement.textContent = formatPrice(cartTotal);
-  }
-
-  // Message (aside)
-  if (cartMessageElement) {
-    cartMessageElement.textContent = generateCartMessage(cartTotal);
+  if (cartTotalHeader) {
+    cartTotalHeader.textContent = formatPrice(cartTotal);
   }
 
   // Aside
-  if (cartCountAsideElement) {
-    cartCountAsideElement.textContent = cartItemCount.toString();
+  if (cartCountAside) {
+    cartCountAside.textContent = cartItemCount.toString();
+  }
+  if (cartTotalAside) {
+    cartTotalAside.textContent = formatPrice(cartTotal);
   }
 
-  if (cartTotalAsideElement) {
-    cartTotalAsideElement.textContent = formatPrice(cartTotal);
+  // Message
+  if (cartMessage) {
+    cartMessage.textContent = getCartMessage(cartTotal);
   }
 }
 
-
-/* Tests manuels de l'état du panier */
+/* 5) Tests simples à faire à la main
+   Tu peux demander aux élèves de modifier ces valeurs
+   pour tester les 3 cas : 0 / < 50 / >= 50
+*/
 
 // Cas 1 : panier vide
 cartItemCount = 0;
@@ -287,6 +292,7 @@ updateCartDisplay();
 // Cas 3 : panier avec total >= 50
 cartItemCount = 4;
 cartTotal = 60;
-updateCartDisplay();
+// updateCartDisplay(); // à décommenter pour tester
 
-console.log("Exercice 8 chargé ✅");
+console.log("Exercice 8 simplifié chargé ✅");
+
