@@ -287,7 +287,7 @@ updateCartDisplay();
 // Cas 2 : panier avec total < 50
 cartItemCount = 2;
 cartTotal = 30;
-updateCartDisplay();
+// updateCartDisplay();
 
 // Cas 3 : panier avec total >= 50
 cartItemCount = 4;
@@ -295,6 +295,7 @@ cartTotal = 60;
 // updateCartDisplay(); // à décommenter pour tester
 
 console.log("Exercice 8 simplifié chargé ✅");
+
 
 
 

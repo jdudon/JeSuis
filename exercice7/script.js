@@ -188,7 +188,8 @@ function createProductCard(product) {
   const desc = document.createElement("p");
   desc.textContent = product.description;
   desc.classList.add("product-description");
-
+    
+  // productListSection.appendChild(article);
   article.appendChild(img);
   article.appendChild(title);
   article.appendChild(priceElt);
@@ -198,7 +199,7 @@ function createProductCard(product) {
 }
 
 function displayProductsInPage() {
-  if (!productListSection) return;
+  // if (!productListSection) return;
 
   productListSection.innerHTML = "";
 
@@ -206,6 +207,7 @@ function displayProductsInPage() {
     const card = createProductCard(product);
     productListSection.appendChild(card);
   }
+
 }
 
 displayProductsInPage();
